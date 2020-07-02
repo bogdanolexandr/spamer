@@ -136,7 +136,8 @@ public class Sender {
 
 	private static Multipart createMimeBodyPart() throws MessagingException {
 		MimeBodyPart p1 = new MimeBodyPart();
-		p1.setText(getLetter());
+		//p1.setText(getLetter());
+		p1.setContent(getLetter(), "text/html; charset=utf-8");
 		File file = new File("attachment");
 		String[] fileNames = file.list();
 		Multipart mp = new MimeMultipart();
