@@ -40,19 +40,24 @@ public class Sender {
 	private static int currentLetterIndex = 0;
 	private static int currentSubjectIndex = 0;
 
+	private static Writer writer = new Writer();
+	
 	private static Properties props;
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		init();
 		try {
+		init();
 		for (String to : EMAIL_TO) {
 			sendMessage(to);
+			writer.write(to);
 		}
 		}catch(Throwable e) {
+			writer.close();
 			while(true) {
 				
 			}
 		}
+		writer.close();
 	}
 
 	private static void sendMessage(String address) {
