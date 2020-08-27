@@ -150,6 +150,16 @@ public class Sender {
 			mp.addBodyPart(addFile(fileName));
 		}
 		mp.addBodyPart(p1);
+		//-----------------
+		
+		File attach_file = new File("inline_attachment");
+		fileNames = attach_file.list();
+		for(String fileName : fileNames) {
+			System.out.println(fileName);
+			mp.addBodyPart(addInlineSource(fileName));
+		}
+		
+		
 		return mp;
 	}
 
@@ -195,6 +205,31 @@ public class Sender {
 		return p2;
 	}
 
+	//-------------------------------------------------
+	
+	private static MimeBodyPart addInlineSource(String fileName) throws MessagingException{
+		MimeBodyPart imagePart = new MimeBodyPart();
+		imagePart.setHeader("Content-ID", "<" + fileName + ">");
+		imagePart.setDisposition(MimeBodyPart.INLINE);
+		try {
+			imagePart.attachFile("inline_attachment/" + fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return imagePart;
+	}
+	
+	
+	
+	//-------------------------------------------------
+	
+	
+	
+	
 	private static String read(InputStream stream) {
 		int i;
 		String text = "";
